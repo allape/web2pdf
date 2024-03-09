@@ -1,0 +1,28 @@
+{
+  "name": "web2pdf",
+  "version": "1.0.0",
+  "description": "A CLI running in docker to export HTMLs into a PDF file.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/allape/web2pdf.git"
+  },
+  "keywords": [
+    "resume",
+    "pdf",
+    "html2pdf",
+    "web2pdf"
+  ],
+  "author": "allape",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/allape/web2pdf/issues"
+  },
+  "homepage": "https://github.com/allape/web2pdf#readme",
+  "devDependencies": {
+    "playwright": "^1.42.1"
+  }
+}
