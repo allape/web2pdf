@@ -4,7 +4,7 @@
   "description": "A CLI running in docker to export HTMLs into a PDF file.",
   "main": "index.js",
   "scripts": {
-    "test": "node index.js"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,6 @@
   },
   "homepage": "https://github.com/allape/web2pdf#readme",
   "devDependencies": {
-    "playwright": "^1.42.1"
+    "playwright": "^1.43.1"
   }
 }

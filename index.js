@@ -20,19 +20,32 @@ function shasum256(text) {
   return hash.digest('hex');
 }
 
-const filename = process.argv[2];
-const URLs = process.argv.slice(3);
+const outputFilename = process.argv[2];
 
-if (!filename || !URLs.length) {
+let delay = 1000;
+let args = process.argv.slice(3);
+let URLs = [];
+
+// extract args
+for (const arg of args) {
+  if (arg.startsWith('--delay=')) {
+    delay = parseInt(arg.split('=')[1]) || delay;
+    continue;
+  }
+  URLs.push(arg);
+}
+
+if (!outputFilename || !URLs.length) {
   printHelp();
   process.exit(1);
 }
 
-console.log('Output filename:', filename);
+console.log('Output filename:', outputFilename);
+console.log('Rendering delay:', delay, 'ms');
 console.log('URLs:', URLs);
 
 (async () => {
-  const finalFilename = filename.replace(/"/g, '');
+  const finalFilename = outputFilename.replace(/"/g, '');
   const files = [];
 
   const browser = await chromium.launch();
@@ -46,9 +59,9 @@ console.log('URLs:', URLs);
       await new Promise(r => {
         page.goto(URL);
         page.once('load', async () => {
-          await new Promise(res => setTimeout(res, 1000));
+          await new Promise(res => setTimeout(res, delay));
           await page.emulateMedia({ media: 'screen' });
-          await page.pdf({ path: pageFilename, format: 'A4' });
+          await page.pdf({ path: pageFilename, format: 'A4', printBackground: true });
           console.log('Writing', URL, 'into', pageFilename);
           await page.close();
           r();
