@@ -2,17 +2,21 @@
 
 A CLI running in docker to export web pages into a PDF file.
 
-### Build
+### Dockerized
+
+⚠️: The font in PDF will be Roboto. 
+
 ```shell
 docker build --build-arg https_proxy=http://host.docker.internal:1080 -t allape/web2pdf:latest .
 ```
 
 ### Run
-```shell
-docker run --rm -v "$(pwd)/output:/output:z" allape/web2pdf node /app/index.js /output/resume.pdf http://host.docker.internal:3000/index http://host.docker.internal:3000/prfile http://host.docker.internal:3000/career
-open output/resume.pdf
 
-alias web2pdf="docker run --rm -v \"\$(pwd)/output:/output:z\" allape/web2pdf node /app/index.js /output/resume.pdf"
-web2pdf http://host.docker.internal:3000/index http://host.docker.internal:3000/prfile http://host.docker.internal:3000/career
-open output/resume.pdf
+```shell
+npx puppeteer browsers install
+npm run start -- --head --url [page1] --url [page2]
 ```
+
+### Merge PDF
+
+See [docker.poppler-utils.Dockerfile](docker.poppler-utils.Dockerfile).
