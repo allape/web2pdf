@@ -73,7 +73,7 @@ for (let i = 0; i < urls.length; i++) {
     format: (args["--paper"] || "A4") as PaperFormat,
   });
 
-  const filename = path.join(output, `${urls.indexOf(url) + 1}.pdf`);
+  const filename = path.join(output, `${i + 1}.pdf`);
 
   fs.writeFileSync(filename, data);
 
