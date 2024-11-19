@@ -68,9 +68,17 @@ for (let i = 0; i < urls.length; i++) {
 
   await new Promise((r) => setTimeout(r, wait * 1000));
 
-  await page.emulateMediaType("screen");
+  await page.emulateMediaType("print");
   const data = await page.pdf({
     format: (args["--paper"] || "A4") as PaperFormat,
+    printBackground: true,
+    displayHeaderFooter: false,
+    margin: {
+      top: "0",
+      right: "0",
+      bottom: "0",
+      left: "0",
+    },
   });
 
   const filename = path.join(output, `${i + 1}.pdf`);
