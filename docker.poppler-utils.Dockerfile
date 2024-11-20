@@ -14,4 +14,4 @@ CMD ["pdfunite"]
 # docker run --rm allape/putils:latest pdfunite -v
 
 ### run ###
-# docker run --rm -v "$(pwd)/output:/output" allape/putils:latest pdfunite /output/1.pdf /output/2.pdf ... /output/resume.pdf
+# docker run --rm -v "$(pwd)/output:/output" allape/putils:latest pdfunite /output/1.pdf /output/2.pdf ... /output/final.pdf
