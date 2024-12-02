@@ -13,6 +13,7 @@ const args = arg(
 
     "--head": Boolean,
     "--paper": String,
+    "--pageRanges": String,
     "--url": [String],
     "--wait": Number,
     "--output": String,
@@ -22,13 +23,14 @@ const args = arg(
 
 function printUsage() {
   console.log(`Usage: npm run start -- --url <page>`);
-  console.log(`  --head     Run in head mode instead of headless`);
-  console.log(`  --help     Show this help`);
-  console.log(`  --output   The output directory to save the PDF`);
-  console.log(`  --paper    The paper format to use, for example A4`);
-  console.log(`  --url      The URL to open`);
-  console.log(`  --version  Show version`);
-  console.log(`  --wait     The seconds before taking the screenshot`);
+  console.log(`  --head        Run in head mode instead of headless`);
+  console.log(`  --help        Show this help`);
+  console.log(`  --output      The output directory to save the PDF`);
+  console.log(`  --paper       The paper format to use, for example A4`);
+  console.log(`  --pageRanges  Paper ranges to print, e.g. \`1-5, 8, 11-13\`.`);
+  console.log(`  --url         The URL to open`);
+  console.log(`  --version     Show version`);
+  console.log(`  --wait        The seconds before taking the screenshot`);
 }
 
 if (args["--help"]) {
@@ -51,6 +53,8 @@ if (urls.length === 0) {
 
 const wait = args["--wait"] || 3;
 const output = args["--output"] || "output";
+const paper = (args["--paper"] || "A4") as PaperFormat;
+const pageRanges = args["--pageRanges"] || "";
 
 // use `npx puppeteer browsers install` to install the default  browser
 export const browser = await puppeteer.launch({
@@ -70,9 +74,10 @@ for (let i = 0; i < urls.length; i++) {
 
   await page.emulateMediaType("print");
   const data = await page.pdf({
-    format: (args["--paper"] || "A4") as PaperFormat,
+    format: paper,
     printBackground: true,
     displayHeaderFooter: false,
+    pageRanges,
     margin: {
       top: "0",
       right: "0",
